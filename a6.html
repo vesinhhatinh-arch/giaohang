@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+
+<title>🚚 Xe Tải Phúc Phát A4</title>
+
+<style>
+
+:root{
+    --primary:#2563eb;
+    --success:#16a34a;
+    --danger:#dc2626;
+    --warning:#f59e0b;
+    --bg:#f3f6fb;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Segoe UI,Arial,sans-serif;
+    background:var(--bg);
+    padding-bottom:120px;
+}
+
+/* HEADER */
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:linear-gradient(90deg,#2563eb,#1d4ed8);
+    color:#fff;
+    padding:12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.headerTitle{
+    font-size:20px;
+    font-weight:700;
+}
+
+.headerDate{
+    font-size:12px;
+    opacity:.9;
+    margin-top:4px;
+}
+
+.lockBtn{
+    border:none;
+    border-radius:10px;
+    padding:8px 12px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+/* LAYOUT */
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:10px;
+}
+
+/* CARD */
+
+.card{
+    background:#fff;
+    margin-top:10px;
+    padding:12px;
+    border-radius:14px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+/* NEXT CUSTOMER */
+
+.nextCard{
+    background:linear-gradient(135deg,#16a34a,#15803d);
+    color:white;
+}
+
+.nextCard h3{
+    margin:0 0 10px;
+}
+
+.nextBtns{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:10px;
+}
+
+.callBtn{
+    background:white;
+    color:#16a34a;
+    border:none;
+    padding:10px;
+    border-radius:10px;
+    font-weight:700;
+}
+
+.doneBtn{
+    background:#22c55e;
+    color:white;
+    border:none;
+    padding:10px;
+    border-radius:10px;
+    font-weight:700;
+}
+
+/* PROGRESS */
+
+.progressBar{
+    height:16px;
+    background:#e5e7eb;
+    border-radius:999px;
+    overflow:hidden;
+}
+
+.progressFill{
+    height:100%;
+    width:0%;
+    background:#16a34a;
+    transition:.4s;
+}
+
+/* FORM */
+
+input,
+textarea,
+select{
+    width:100%;
+    margin-top:6px;
+    padding:10px;
+    border-radius:10px;
+    border:1px solid #ddd;
+}
+
+textarea{
+    resize:vertical;
+    min-height:70px;
+}
+
+.btns{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:10px;
+}
+
+.btn{
+    border:none;
+    color:white;
+    font-weight:700;
+    padding:11px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.add{
+    background:var(--primary);
+}
+
+.restore{
+    background:var(--warning);
+}
+
+/* STATS */
+
+.statsGrid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+}
+
+.statBox{
+    background:#f8fafc;
+    border-radius:10px;
+    padding:10px;
+}
+
+/* ORDER */
+
+.order{
+    background:white;
+    margin-top:10px;
+    padding:12px;
+    border-radius:12px;
+}
+
+.order.done{
+    background:#dcfce7;
+}
+
+.orderName{
+    font-weight:700;
+    font-size:17px;
+}
+
+.note{
+    margin-top:6px;
+    color:#555;
+    font-style:italic;
+}
+
+.row{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:6px;
+    margin-top:10px;
+}
+
+.small{
+    border:none;
+    color:white;
+    padding:8px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.green{
+    background:#16a34a;
+}
+
+.red{
+    background:#dc2626;
+}
+
+.blue{
+    background:#2563eb;
+}
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:20px;
+    transform:translateX(-50%);
+    background:#111;
+    color:white;
+    padding:10px 14px;
+    border-radius:999px;
+    display:none;
+    z-index:9999;
+}
+
+/* EFFECT */
+
+.money,
+.god{
+    position:fixed;
+    pointer-events:none;
+    z-index:99999;
+}
+
+.money{
+    top:-40px;
+    animation:fall 3s linear forwards;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(120vh);
+        opacity:0;
+    }
+}
+
+.god{
+    top:30%;
+    left:-120px;
+    font-size:42px;
+    animation:run 4s linear forwards;
+}
+
+@keyframes run{
+    to{
+        transform:translateX(120vw);
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+
+<div>
+<div class="headerTitle">
+🚚 Xe Tải Phúc Phát
+</div>
+
+<div
+class="headerDate"
+id="todayText">
+</div>
+</div>
+
+<button
+class="lockBtn"
+onclick="lockToggle()">
+🔒 LOCK
+</button>
+
+</div>
+
+<div class="container">
+
+<div
+id="nextCustomer"
+class="card nextCard">
+</div>
+
+<div class="card">
+
+<div class="progressBar">
+<div
+class="progressFill"
+id="progressFill">
+</div>
+</div>
+
+<div
+id="progressText"
+style="margin-top:8px;font-weight:700">
+</div>
+
+</div>
+
+
+
+<div class="card" id="formBox">
+
+<h3>➕ Thêm đơn</h3>
+
+<input id="name" placeholder="Tên khách">
+
+<select id="address"></select>
+
+<input
+id="phone"
+inputmode="numeric"
+placeholder="SĐT">
+
+<input
+id="packages"
+inputmode="numeric"
+placeholder="Số kiện">
+
+<input
+id="fee"
+inputmode="numeric"
+placeholder="Tiền cước">
+
+<textarea
+id="note"
+placeholder="Mô tả">
+</textarea>
+
+<div class="btns">
+
+<button
+class="btn add"
+onclick="add()">
+THÊM
+</button>
+
+<button
+class="btn restore"
+onclick="restoreOrder()">
+KHÔI PHỤC
+</button>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<input
+id="search"
+placeholder="🔍 Tìm theo tên, SĐT, địa chỉ, mô tả"
+oninput="render()">
+
+</div>
+
+<div
+class="card statsGrid"
+id="stats">
+</div>
+
+<div id="list"></div>
+
+<div class="card">
+
+<button
+class="btn add"
+onclick="showCustomers()">
+
+👥 SỔ KHÁCH HÀNG
+
+</button>
+
+<div id="customerBox"></div>
+
+</div>
+
+<div class="card">
+
+<h3>📅 Lịch sử ngày</h3>
+
+<select
+id="dateSelect"
+onchange="changeDate()">
+</select>
+
+</div>
+
+<div class="card" id="incomeBox">
+</div>
+
+</div>
+
+<div
+class="toast"
+id="toast">
+</div>
+<script>
+
+const PASS = "16612";
+
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbyWAJ72mYSu8LJpGucu7Gxz6xeA8BcrtC0A4IW5Rk5daDtQI32NReuvGUQ1po1sJ_88/exec";
+
+let locked = false;
+
+let changed = false;
+
+let lastDeleted = null;
+
+let deleteTimer = null;
+let customerHistory =
+JSON.parse(
+    localStorage.getItem("customerHistory")
+    || "[]"
+);
+const ROUTE_POINTS = [
+"Thạch Bình",
+"Cây xăng Cẩm Vịnh",
+"Cống Cẩm Thành",
+"Đường Tránh Kẻ Gỗ",
+"Bệnh Viện Cẩm Xuyên",
+"Điện Máy Xanh Cẩm Xuyên",
+"Bưu điện Cẩm Xuyên",
+"Chợ Hội",
+"Cầu Họ",
+"Ngã 3 HHT Ngoài",
+"Ngã 3 HHT Trong",
+"Ngã 4 Cẩm Thịnh",
+"Cổng chào X10 Cẩm Sơn",
+"Cổng chào Cẩm Sơn",
+"Cây Xăng Cẩm Sơn",
+"Cẩm Lộc",
+"Ngã 3 Cẩm Lạc",
+"Cổng chào Cẩm Trung",
+"Cẩm Minh",
+"Ngã 3 Voi",
+"Cổng chào Kỳ Tiến",
+"Cây xăng Kỳ Giang",
+"Đường 70 Kỳ Đồng",
+"Ngã 3 Kỳ Đồng",
+"Ngã 3 Kỳ Khang",
+"Kỳ Thọ",
+"Cây xăng Kỳ Văn",
+"Kỳ Thư",
+"Ngã 3 Bích Châu",
+"Bưu điện Kỳ Anh",
+"Vincom Kỳ Anh",
+"Cầu Trí",
+"Trường Thọ",
+"Chợ Mới",
+"Cây Đa Kỳ Trinh",
+"Ngã 3 Cảng",
+"Ngã 4 Kỳ Thịnh",
+"Ngã 3 Kỳ Long",
+"Ngã 3 Kỳ Liên"
+];
+
+function loadPoints(){
+
+id("address").innerHTML =
+ROUTE_POINTS.map((p,i)=>
+`<option value="${p}">${i+1}. ${p}</option>`
+).join("");
+
+}
+let ordersByDate =
+JSON.parse(
+localStorage.getItem("ordersByDate") || "{}"
+);
+
+function todayKey(){
+
+    const d = new Date();
+
+    const y = d.getFullYear();
+
+    const m = String(
+        d.getMonth()+1
+    ).padStart(2,"0");
+
+    const day = String(
+        d.getDate()
+    ).padStart(2,"0");
+
+    return `${y}-${m}-${day}`;
+}
+
+let currentDate = todayKey();
+
+function initToday(){
+
+    if(!ordersByDate[currentDate]){
+
+        ordersByDate[currentDate] = [];
+
+        save();
+    }
+
+    id("todayText").innerText =
+        "📅 " +
+        currentDate.split("-").reverse().join("/");
+}
+
+function currentOrders(){
+
+    if(!ordersByDate[currentDate]){
+
+        ordersByDate[currentDate] = [];
+    }
+
+    return ordersByDate[currentDate];
+}
+
+function save(){
+
+    localStorage.setItem(
+        "ordersByDate",
+        JSON.stringify(ordersByDate)
+    );
+}
+
+setInterval(()=>{
+
+    if(changed){
+
+        save();
+
+        changed = false;
+
+        show("💾 Đã lưu");
+    }
+
+},10000);
+
+function onlyNumber(v){
+
+    return v.replace(/\D/g,'');
+}
+
+function add(){
+
+    if(locked){
+
+        show("🔒 Đang khóa");
+
+        return;
+    }
+
+    let name =
+        id("name").value.trim();
+
+    let address =
+        id("address").value.trim();
+
+    let phone =
+        onlyNumber(
+            id("phone").value
+        );
+
+    let packages =
+        onlyNumber(
+            id("packages").value
+        );
+
+    let fee =
+        onlyNumber(
+            id("fee").value
+        );
+
+    let note =
+        id("note").value.trim();
+
+    if(
+        !name &&
+        !address &&
+        !phone &&
+        !packages &&
+        !fee &&
+        !note
+    ){
+        show("Nhập dữ liệu");
+
+        return;
+    }
+
+    currentOrders().unshift({
+
+    id:Date.now(),
+
+    name,
+
+    address,
+
+    phone,
+
+    packages,
+
+    fee,
+
+    note,
+
+    done:false
+});
+
+/* TỰ SẮP XẾP THEO TUYẾN */
+
+currentOrders().sort((a,b)=>{
+
+    if(a.done && !b.done) return 1;
+    if(!a.done && b.done) return -1;
+
+    let ia = ROUTE_POINTS.indexOf(a.address);
+    let ib = ROUTE_POINTS.indexOf(b.address);
+
+    if(ia < 0) ia = 999;
+    if(ib < 0) ib = 999;
+
+    return ia - ib;
+
+});
+
+clearForm();
+saveCustomer(
+    name,
+    phone,
+    address,
+    note
+);
+changed = true;
+
+render();
+
+show("✅ Đã thêm")
+}
+
+function lockToggle(){
+
+    const box =
+        id("formBox");
+
+    if(!locked){
+
+        locked = true;
+
+        box.style.display = "none";
+
+        show("🔒 Đã khóa");
+
+        return;
+    }
+
+    let pw =
+        prompt("Mật khẩu");
+
+    if(pw===PASS){
+
+        locked=false;
+
+        box.style.display="block";
+
+        show("🔓 Đã mở");
+    }
+    else{
+
+        show("Sai mật khẩu");
+    }
+}
+
+function toggle(idv){
+
+    let arr =
+        currentOrders();
+
+    let i =
+        arr.findIndex(
+            x=>x.id==idv
+        );
+
+    if(i<0) return;
+
+    let order = arr[i];
+
+    order.done = !order.done;
+
+    if(order.done){
+
+        arr.splice(i,1);
+
+        arr.push(order);
+    }
+
+    changed = true;
+
+    render();
+}
+
+function del(idv){
+
+    if(
+        !confirm("Xóa đơn này?")
+    ) return;
+
+    let arr =
+        currentOrders();
+
+    let idx =
+        arr.findIndex(
+            x=>x.id==idv
+        );
+
+    if(idx<0) return;
+
+    lastDeleted =
+        arr[idx];
+
+    arr.splice(idx,1);
+
+    clearTimeout(
+        deleteTimer
+    );
+
+    deleteTimer =
+    setTimeout(()=>{
+
+        lastDeleted = null;
+
+    },30000);
+
+    changed = true;
+
+    render();
+
+    show("🗑 Đã xóa");
+}
+
+function restoreOrder(){
+
+    if(!lastDeleted){
+
+        show("Không có đơn");
+
+        return;
+    }
+
+    currentOrders().unshift(
+        lastDeleted
+    );
+
+    lastDeleted = null;
+
+    changed = true;
+
+    render();
+
+    show("♻️ Đã khôi phục");
+}
+
+function up(idv){
+
+    let arr =
+        currentOrders();
+
+    let i =
+        arr.findIndex(
+            x=>x.id==idv
+        );
+
+    if(i>0){
+
+        [arr[i],arr[i-1]]
+        =
+        [arr[i-1],arr[i]];
+
+        changed=true;
+
+        render();
+    }
+}
+
+function down(idv){
+
+    let arr =
+        currentOrders();
+
+    let i =
+        arr.findIndex(
+            x=>x.id==idv
+        );
+
+    if(
+        i <
+        arr.length-1
+    ){
+
+        [arr[i],arr[i+1]]
+        =
+        [arr[i+1],arr[i]];
+
+        changed=true;
+
+        render();
+    }
+}
+
+function changeDate(){
+
+    currentDate =
+        id("dateSelect").value;
+
+    render();
+}
+
+function render(){
+
+    let arr =
+        currentOrders();
+
+    let key =
+        id("search")
+        ? id("search")
+            .value
+            .toLowerCase()
+        : "";
+
+   let list =
+    arr.filter(o=>{
+
+        return (
+            (o.name||"")
+            .toLowerCase()
+            .includes(key)
+
+            ||
+
+            (o.phone||"")
+            .includes(key)
+
+            ||
+
+            (o.address||"")
+            .toLowerCase()
+            .includes(key)
+
+            ||
+
+            (o.note||"")
+            .toLowerCase()
+            .includes(key)
+        );
+
+    });
+
+    renderNextCustomer();
+
+    renderStats();
+
+    renderProgress();
+
+    renderHistory();
+renderIncome();
+
+    id("list").innerHTML =
+    list.map(o=>`
+
+<div class="order ${o.done?'done':''}">
+
+<div class="orderName">
+
+${o.name || '(Không tên)'}
+
+</div>
+
+<div>
+📍 ${o.address || '-'}
+</div>
+
+<div>
+📦 ${o.packages || 0} kiện
+</div>
+
+<div>
+📞
+
+${
+o.phone
+?
+`<a href="tel:${o.phone}">
+${o.phone}
+</a>`
+:
+'-'
+}
+
+</div>
+
+<div>
+💰
+${Number(
+o.fee || 0
+).toLocaleString()}
+VNĐ
+</div>
+
+${
+o.note
+?
+`
+<div class="note">
+📝 ${o.note}
+</div>
+`
+:
+''
+}
+
+<div class="row">
+
+<button
+class="small green"
+onclick="toggle(${o.id})">
+
+✓
+
+</button>
+
+<button
+class="small blue"
+onclick="up(${o.id})">
+
+⬆
+
+</button>
+
+<button
+class="small blue"
+onclick="down(${o.id})">
+
+⬇
+
+</button>
+
+<button
+class="small red"
+onclick="del(${o.id})">
+
+🗑
+
+</button>
+
+</div>
+
+</div>
+
+`).join("");
+
+}
+
+function renderNextCustomer(){
+
+    let next =
+        currentOrders()
+        .find(x=>!x.done);
+
+    if(!next){
+
+        id("nextCustomer")
+        .innerHTML = `
+
+<h3>
+🚚 KHÁCH TIẾP THEO
+</h3>
+
+<div>
+🎉 Đã hoàn thành
+tất cả đơn hôm nay
+</div>
+
+`;
+
+        return;
+    }
+
+    id("nextCustomer")
+    .innerHTML = `
+
+<h3>
+🚚 KHÁCH TIẾP THEO
+</h3>
+
+<div>
+👤
+<b>
+${next.name || '(Không tên)'}
+</b>
+</div>
+
+<div>
+📍
+${next.address || '-'}
+</div>
+
+<div>
+📞
+${next.phone || '-'}
+</div>
+
+<div>
+📦
+${next.packages || 0}
+kiện
+</div>
+
+<div>
+💰
+${Number(
+next.fee || 0
+).toLocaleString()}
+VNĐ
+</div>
+
+${
+next.note
+?
+`
+<div style="margin-top:6px">
+📝 ${next.note}
+</div>
+`
+:
+''
+}
+
+<div class="nextBtns">
+
+<button
+class="callBtn"
+onclick="
+window.location.href=
+'tel:${next.phone}'
+">
+
+📞 GỌI
+
+</button>
+
+<button
+class="doneBtn"
+onclick="
+toggle(${next.id})
+">
+
+✅ ĐÃ GIAO
+
+</button>
+
+</div>
+
+`;
+}
+
+function renderStats(){
+
+    let arr =
+        currentOrders();
+
+    let total =
+        arr.length;
+
+    let done =
+        arr.filter(
+            x=>x.done
+        ).length;
+
+    let pending =
+        total - done;
+
+    let totalMoney = 0;
+
+    let doneMoney = 0;
+
+    let pendingMoney = 0;
+
+    arr.forEach(o=>{
+
+        let fee =
+            Number(
+                o.fee || 0
+            );
+
+        totalMoney += fee;
+
+        if(o.done){
+
+            doneMoney += fee;
+        }
+        else{
+
+            pendingMoney += fee;
+        }
+
+    });
+
+    id("stats").innerHTML = `
+
+<div class="statBox">
+📦 Tổng đơn
+<br>
+<b>${total}</b>
+</div>
+
+<div class="statBox">
+✅ Đã giao
+<br>
+<b>${done}</b>
+</div>
+
+<div class="statBox">
+⏳ Chưa giao
+<br>
+<b>${pending}</b>
+</div>
+
+<div class="statBox">
+💰 Tổng cước
+<br>
+<b>
+${totalMoney.toLocaleString()}
+</b>
+</div>
+
+<div class="statBox">
+💵 Đã giao
+<br>
+<b>
+${doneMoney.toLocaleString()}
+</b>
+</div>
+
+<div class="statBox">
+🧾 Chưa giao
+<br>
+<b>
+${pendingMoney.toLocaleString()}
+</b>
+</div>
+
+`;
+
+}
+
+function renderProgress(){
+
+    let arr =
+        currentOrders();
+
+    let total =
+        arr.length;
+
+    let done =
+        arr.filter(
+            x=>x.done
+        ).length;
+
+    let percent =
+        total
+        ?
+        Math.round(
+            done * 100 / total
+        )
+        :
+        0;
+
+    id("progressFill")
+        .style.width =
+        percent + "%";
+
+    id("progressText")
+        .innerHTML =
+
+        `📊 ${done}/${total} đơn (${percent}%)`;
+
+}
+
+function renderHistory(){
+
+    let dates =
+        Object.keys(
+            ordersByDate
+        )
+        .sort()
+        .reverse();
+
+    id("dateSelect")
+    .innerHTML =
+
+    dates.map(d=>`
+
+<option
+value="${d}"
+${d===currentDate?'selected':''}>
+
+${d}
+
+</option>
+
+`).join("");
+
+}
+
+/* AUTO SYNC */
+
+function sync(){
+
+    fetch(
+        SCRIPT_URL,
+        {
+            method:"POST",
+
+            body:JSON.stringify({
+
+                date:currentDate,
+
+                orders:
+                currentOrders()
+
+            })
+        }
+    )
+    .then(()=>{
+
+        localStorage.setItem(
+            "lastSyncDate",
+            todayKey()
+        );
+
+        show(
+            "☁️ Đã đồng bộ"
+        );
+
+    })
+    .catch(()=>{
+
+        show(
+            "❌ Sync lỗi"
+        );
+
+    });
+
+}
+
+function checkAutoSync(){
+
+    const now =
+        new Date();
+
+    const hour =
+        now.getHours();
+
+    const today =
+        todayKey();
+
+    const lastSync =
+        localStorage.getItem(
+            "lastSyncDate"
+        );
+
+    if(
+        hour >= 18
+        &&
+        lastSync !== today
+    ){
+
+        sync();
+
+    }
+
+}
+
+setInterval(
+    checkAutoSync,
+    60000
+);
+
+/* EFFECT MONEY */
+
+setInterval(
+    ()=>money(),
+    1500
+);
+
+function money(){
+
+    let e =
+        document
+        .createElement(
+            "div"
+        );
+
+    e.className =
+        "money";
+
+    e.innerText =
+        "💸";
+
+    e.style.left =
+        Math.random()*100
+        +
+        "vw";
+
+    document.body
+    .appendChild(e);
+
+    setTimeout(
+        ()=>e.remove(),
+        4000
+    );
+}
+
+/* GOD OF WEALTH */
+
+setInterval(
+    ()=>god(),
+    8000
+);
+
+function god(){
+
+    let e =
+        document
+        .createElement(
+            "div"
+        );
+
+    e.className =
+        "god";
+
+    e.innerText =
+        "🧧";
+
+    document.body
+    .appendChild(e);
+
+    setTimeout(
+        ()=>e.remove(),
+        4000
+    );
+}
+
+/* HELPERS */
+
+function id(x){
+
+    return document
+    .getElementById(x);
+
+}
+
+function clearForm(){
+
+    [
+        "name",
+        "address",
+        "phone",
+        "packages",
+        "fee",
+        "note"
+    ]
+    .forEach(i=>{
+
+        id(i).value="";
+
+    });
+
+}
+
+function show(t){
+
+    let e =
+        id("toast");
+
+    e.innerText =
+        t;
+
+    e.style.display =
+        "block";
+
+    setTimeout(()=>{
+
+        e.style.display =
+            "none";
+
+    },1500);
+
+}
+function saveCustomer(name,phone,address,note){
+
+    if(!name && !phone) return;
+
+    let exist =
+    customerHistory.find(c=>
+
+        c.phone===phone
+
+    );
+
+    if(exist){
+
+        exist.name=name;
+        exist.address=address;
+        exist.note=note;
+
+    }else{
+
+        customerHistory.push({
+
+            name,
+            phone,
+            address,
+            note
+
+        });
+
+    }
+
+    localStorage.setItem(
+        "customerHistory",
+        JSON.stringify(customerHistory)
+    );
+
+}
+function showCustomers(){
+
+    let html = `
+
+    <h3>👥 Sổ khách hàng</h3>
+
+    <input
+    id="customerSearch"
+    placeholder="Tìm tên hoặc SĐT"
+    oninput="filterCustomers()">
+
+    <div id="customerListView"></div>
+
+    `;
+
+    id("customerBox").innerHTML =
+        html;
+
+    filterCustomers();
+
+}
+function filterCustomers(){
+
+    let key =
+    (
+        id("customerSearch")
+        ?.value
+        ||
+        ""
+    )
+    .toLowerCase();
+
+    let list =
+    customerHistory.filter(c=>
+
+        (c.name||"")
+        .toLowerCase()
+        .includes(key)
+
+        ||
+
+        (c.phone||"")
+        .includes(key)
+
+    );
+
+    id("customerListView").innerHTML =
+
+    list.map(c=>`
+
+<div class="order">
+
+<div class="orderName">
+
+${c.name}
+
+</div>
+
+<div>
+
+📞 ${c.phone}
+
+</div>
+
+<div>
+
+📍 ${c.address}
+
+</div>
+
+<button
+class="small green"
+onclick="useCustomer('${c.phone}')">
+
+CHỌN
+
+</button>
+
+</div>
+
+`).join("");
+
+}
+
+function useCustomer(phone){
+
+    let c =
+    customerHistory.find(x=>
+        x.phone===phone
+    );
+
+    if(!c) return;
+
+    id("name").value =
+        c.name || "";
+
+    id("phone").value =
+        c.phone || "";
+
+    id("address").value =
+        c.address || "";
+
+    id("note").value =
+        c.note || "";
+
+    show("✅ Đã chọn khách");
+}
+
+function renderIncome(){
+
+    // Doanh thu ngày đang xem
+    let todayIncome = 0;
+
+    currentOrders().forEach(o=>{
+
+        todayIncome += Number(o.fee || 0);
+
+    });
+
+    // Doanh thu tháng hiện tại
+    const monthKey =
+        currentDate.substring(0,7);
+
+    let monthIncome = 0;
+
+    Object.keys(ordersByDate)
+    .forEach(date=>{
+
+        if(date.startsWith(monthKey)){
+
+            ordersByDate[date]
+            .forEach(o=>{
+
+                monthIncome +=
+                Number(o.fee || 0);
+
+            });
+
+        }
+
+    });
+
+    id("incomeBox").innerHTML = `
+
+<h3>💰 DOANH THU</h3>
+
+<div class="statsGrid">
+
+<div class="statBox">
+
+📅 Hôm nay
+
+<br><br>
+
+<b>
+${todayIncome.toLocaleString()} VNĐ
+</b>
+
+</div>
+
+<div class="statBox">
+
+📆 Tháng này
+
+<br><br>
+
+<b>
+${monthIncome.toLocaleString()} VNĐ
+</b>
+
+</div>
+
+</div>
+
+`;
+
+}
+/* INIT */
+
+loadPoints();
+
+initToday();
+
+checkAutoSync();
+
+render();
+
+</script>
+
+</body>
+</html>
